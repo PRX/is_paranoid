@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.files = [
     "init.rb",
     "lib/is_paranoid.rb",
-    "README.textile",
+    "README.markdown",
     "Rakefile",
     "MIT-LICENSE",
     "spec/is_paranoid_spec.rb",
