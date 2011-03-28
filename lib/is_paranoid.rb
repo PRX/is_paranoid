@@ -90,7 +90,7 @@ module IsParanoid
 
         # Mark the model deleted_at as now.
         def destroy_without_callbacks
-          self.deleted_at = current_time_from_proper_timezone
+          self.deleted_at = Time.now 
           update_without_callbacks
         end
         
