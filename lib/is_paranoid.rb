@@ -44,7 +44,7 @@ module IsParanoid
         def self.find_with_destroyed *args
           self.with_destroyed_scope { find(*args) }
         end
-        
+
         # Perform a find only on destroyed instances.
         def self.find_only_destroyed *args
           self.with_only_destroyed_scope { find(*args) }
@@ -85,15 +85,15 @@ module IsParanoid
         def destroyed?
           super || !deleted_at.nil?
         end
-        
+
         protected
 
         # Mark the model deleted_at as now.
         def destroy_without_callbacks
-          self.deleted_at = Time.now 
+          self.deleted_at = Time.now
           update_without_callbacks
         end
-        
+
         def self.with_only_destroyed_scope(&block)
           with_destroyed_scope do
             table = connection.quote_table_name(table_name)
@@ -110,15 +110,15 @@ module IsParanoid
 
             begin
               case find[:conditions]
-              when Hash:
+              when Hash
                 if find[:conditions][:deleted_at].nil?
                   find[:conditions].delete(:deleted_at)
                 end
-              when String:
+              when String
                 conditions = sanitize_conditions(:deleted_at => nil)
                 find[:conditions].gsub!(conditions, '1=1')
               end
-              
+
               result = yield
             ensure
               find[:conditions] = original
